@@ -73,7 +73,7 @@
     <!-- end scripts -->
 </head>
 
-<body>
+<body >
 
     <div id="noVNC_fallback_error" class="noVNC_center">
         <div>
@@ -86,7 +86,7 @@
     <!-- noVNC Control Bar -->
     <div id="noVNC_control_bar_anchor" class="noVNC_vcenter">
 
-        <div id="noVNC_control_bar">
+        <div id="noVNC_control_bar" style="visibility:hidde">
             <div id="noVNC_control_bar_handle" title="Hide/Show the control bar"><div></div></div>
 
             <div class="noVNC_scroll">
@@ -95,7 +95,7 @@
 
             <!-- Drag/Pan the viewport -->
             <input type="image" alt="viewport drag" src="app/images/drag.svg"
-                id="noVNC_view_drag_button" class="noVNC_button noVNC_hidden"
+                id="noVNC_view_drag_button" class="noVNC_button noVNC_hidde"
                 title="Move/Drag Viewport">
 
             <!--noVNC Touch Device only buttons-->
@@ -116,8 +116,8 @@
                     id="noVNC_keyboard_button" class="noVNC_button" title="Show Keyboard">
             </div>
 
-            <!-- Extra manual keys -->
-            <div id="noVNC_extra_keys">
+            <!-- Extra manual keys -->  <!-- 显示额外按钮 -->
+            <div id="noVNC_extra_keys" style="visibility:hidden">
                 <input type="image" alt="Extra keys" src="app/images/toggleextrakeys.svg"
                     id="noVNC_toggle_extra_keys_button" class="noVNC_button"
                     title="Show Extra Keys">
@@ -161,8 +161,8 @@
             </div>
 
             <!-- Clipboard -->
-            <input type="image" alt="Clipboard" src="app/images/clipboard.svg"
-                id="noVNC_clipboard_button" class="noVNC_button"
+            <input type="image" alt="Clipboard" src="app/images/clipboard.svg" 
+                id="noVNC_clipboard_button" class="noVNC_button" style="visibility:hidden"
                 title="Clipboard">
             <div class="noVNC_vcenter">
             <div id="noVNC_clipboard" class="noVNC_panel">
@@ -177,16 +177,19 @@
             </div>
 
             <!-- Toggle fullscreen -->
-            <input type="image" alt="Fullscreen" src="app/images/fullscreen.svg"
-                id="noVNC_fullscreen_button" class="noVNC_button noVNC_hidden"
-                title="Fullscreen">
+            <input type="button" 
+                id="noVNC_fullscreen_button" class="noVNC_button noVNC_hidde"
+                 value="放大" >
+             <form  id="form">
+                     <input type="button" id="showIpNum"    value="重启" onclick="test()"  >
+            </form>
 
-            <!-- Settings -->
-            <input type="image" alt="Settings" src="app/images/settings.svg"
+            <!-- Settings --> <!-- 设置按钮 -->
+            <input type="image" alt="Settings" src="app/images/settings.svg" style="visibility:hidden"
                 id="noVNC_settings_button" class="noVNC_button"
-                title="Settings">
+                title="Settings">   
             <div class="noVNC_vcenter">
-            <div id="noVNC_settings" class="noVNC_panel">
+            <div id="noVNC_settings" class="noVNC_panel"  >
                 <ul>
                     <li class="noVNC_heading">
                         <img alt="" src="app/images/settings.svg"> Settings
@@ -268,10 +271,10 @@
             </div>
             </div>
 
-            <!-- Connection Controls -->
+            <!-- Connection Controls -->   <!-- 结束按钮 -->
             <input type="image" alt="Disconnect" src="app/images/disconnect.svg"
                 id="noVNC_disconnect_button" class="noVNC_button"
-                title="Disconnect">
+                title="Disconnect" style="visibility:hidden" >
 
             </div>
         </div>
@@ -281,12 +284,12 @@
     </div> <!-- End of noVNC_control_bar -->
 
     <!-- Status Dialog -->
-    <div id="noVNC_status"></div>
+    <div id="noVNC_status" style="visibility:hidden" ></div>
 
     <!-- Connect button -->
-    <div class="noVNC_center">
-        <div id="noVNC_connect_dlg">
-            <div class="noVNC_logo" translate="no"><span>no</span>VNC</div>
+    <div class="noVNC_center" >
+        <div id="noVNC_connect_dlg"  style="visibility:hidde">
+            <div class="noVNC_logo" translate="no"   ><span>no</span>VNC</div>
             <div id="noVNC_connect_button"><div>
                 <img alt="" src="app/images/connect.svg"> Connect
             </div></div>
@@ -295,11 +298,11 @@
 
     <!-- Password Dialog -->
     <div class="noVNC_center noVNC_connect_layer">
-    <div id="noVNC_password_dlg" class="noVNC_panel"><form>
+    <div id="noVNC_password_dlg" class="noVNC_panel"  style="visibility:hidde"><form>
         <ul>
             <li>
                 <label>Password:</label>
-                <input id="noVNC_password_input" type="password">
+                <input id="noVNC_password_input"  value="123456" type="password"  >
             </li>
             <li>
                 <input id="noVNC_password_button" type="submit" value="Send Password" class="noVNC_submit">
@@ -325,11 +328,65 @@
              style for example -->
         <textarea id="noVNC_keyboardinput" autocapitalize="off"
             autocomplete="off" spellcheck="false" tabindex="-1"></textarea>
+       
     </div>
+
 
     <audio id="noVNC_bell">
         <source src="app/sounds/bell.oga" type="audio/ogg">
         <source src="app/sounds/bell.mp3" type="audio/mpeg">
     </audio>
  </body>
+
 </html>
+<script defer  language="javascript" type="text/javascript">
+   
+    //    // setTimeout(autoLogin2,1000);
+
+         
+        window.onload=function (){
+        setTimeout(function(){
+
+
+            document.getElementById("noVNC_connect_button").click();
+        setTimeout(function(){
+            document.getElementById("noVNC_password_button").click();
+            },1000);
+        },500);
+        }
+
+    　function test(){
+　　　　var url = document.location.toString();
+　　　　var arrUrl = url.split("?");
+
+　　　　var para = arrUrl[2];
+        console.log(para)
+        var host_num=para.split("=")[1];
+
+        var domain = window.location.hostname;
+            console.log(domain);
+
+            var url="http://"+domain+":80/Experiment/index.php/Home/Docker/restartContainerById/false_ip/"+host_num;
+            console.log(url)
+            document.getElementById("form").setAttribute("action",url);
+            document.getElementById("form").submit();
+　　}
+   
+            
+             
+        
+        // alert("fsa");
+        
+       //   setTimeout(autoLogin2  , 2000);
+       // function autoLogin2(){
+       //      document.getElementById("noVNC_connect_button").click();
+       //      sendPassword=document.getElementById("noVNC_password_button").click();
+
+           
+       //  }
+          
+          // sendPassword.click();
+    
+    
+    
+</script>

@@ -1165,7 +1165,7 @@ const UI = {
         const inputElem = document.getElementById('noVNC_password_input');
         const password = inputElem.value;
         // Clear the input after reading the password
-        inputElem.value = "";
+        inputElem.value = "123456";
         UI.rfb.sendCredentials({ password: password });
         UI.reconnect_password = password;
         document.getElementById('noVNC_password_dlg')
