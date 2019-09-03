@@ -181,7 +181,9 @@
                 id="noVNC_fullscreen_button" class="noVNC_button noVNC_hidde"
                  value="放大" >
              <form  id="form">
-                     <input type="button" id="showIpNum"    value="重启" onclick="test()"  >
+                     <input type="button" id="showIpNum"    value="重启" onclick="restart()"  >
+                     <input type="button" id="showIpNum"    value="开机" onclick="start()"  >
+                     <input type="button" id="showIpNum"    value="关机" onclick="stop()"  >
             </form>
 
             <!-- Settings --> <!-- 设置按钮 -->
@@ -355,7 +357,7 @@
         },500);
         }
 
-    　function test(){
+    　function restart(){
 　　　　var url = document.location.toString();
 　　　　var arrUrl = url.split("?");
 
@@ -366,7 +368,39 @@
         var domain = window.location.hostname;
             console.log(domain);
 
-            var url="http://"+domain+":80/Experiment/index.php/Home/Docker/restartContainerById/false_ip/"+host_num;
+            var url="http://"+domain+":80/Experiment/index.php/Home/Docker/restartContainerByIp/false_ip/"+host_num;
+            console.log(url)
+            document.getElementById("form").setAttribute("action",url);
+            document.getElementById("form").submit();
+　　}
+    function stop(){
+　　　　var url = document.location.toString();
+　　　　var arrUrl = url.split("?");
+
+　　　　var para = arrUrl[2];
+        console.log(para)
+        var host_num=para.split("=")[1];
+
+        var domain = window.location.hostname;
+            console.log(domain);
+
+            var url="http://"+domain+":80/Experiment/index.php/Home/Docker/stopContainerByIp/false_ip/"+host_num;
+            console.log(url)
+            document.getElementById("form").setAttribute("action",url);
+            document.getElementById("form").submit();
+　　}
+ function start(){
+　　　　var url = document.location.toString();
+　　　　var arrUrl = url.split("?");
+
+　　　　var para = arrUrl[2];
+        console.log(para)
+        var host_num=para.split("=")[1];
+
+        var domain = window.location.hostname;
+            console.log(domain);
+
+            var url="http://"+domain+":80/Experiment/index.php/Home/Docker/startContainerByIp/false_ip/"+host_num;
             console.log(url)
             document.getElementById("form").setAttribute("action",url);
             document.getElementById("form").submit();
